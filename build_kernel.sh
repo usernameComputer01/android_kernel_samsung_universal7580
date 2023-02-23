@@ -1,11 +1,11 @@
 #!/bin/bash
-export CROSS_COMPILE=../PLATFORM/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-
-#rm log.txt
-#make clean
-#make distclean
-#export CROSS_COMPILE=/home/tien.tq1/toolchains/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-
+
+export CROSS_COMPILE=../bin/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9/bin/aarch64-linux-androidkernel-
 export ARCH=arm64
 
-make exynos7580-a5xelte_defconfig
-make -j
-#24 2>&1 | tee -a  log.txt
+if [ ! -z $USE_CCACHE  ] && [ ! -z $CCACHE_EXEC -a -x $CCACHE_EXEC ]; then
+    export CROSS_COMPILE="$CCACHE_EXEC $CROSS_COMPILE"
+fi
+
+make lineageos_a3xelte_defconfig
+make -j 8
