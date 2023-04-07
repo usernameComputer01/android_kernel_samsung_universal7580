@@ -7,5 +7,11 @@ if [ ! -z $USE_CCACHE  ] && [ ! -z $CCACHE_EXEC -a -x $CCACHE_EXEC ]; then
     export CROSS_COMPILE="$CCACHE_EXEC $CROSS_COMPILE"
 fi
 
-make lineageos_a3xelte_defconfig
-make -j 8
+if [ ! -z $OUT_DIR ]; then
+    OUT=$OUT_DIR
+else
+    OUT=out
+fi
+
+make O=$OUT lineageos_a3xelte_defconfig
+make O=$OUT -j 8
